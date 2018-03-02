@@ -208,101 +208,15 @@ GenderDemo
 
 
 ```python
-JSMax = JS['Price'].max()
-JSMin = JS['Price'].min()
-JSMean = JS['Price'].mean()
-JSStd = JS['Price'].std()
-JSN = (JS['Price'] - JSMin)/(JSMax-JSMin)
-JS['JSNor']=JSN
-JS.head()
+#different method of normalization
+#JSMax = JS['Price'].max()
+#JSMin = JS['Price'].min()
+#JSMean = JS['Price'].mean()
+#JSStd = JS['Price'].std()
+#JSN = (JS['Price'] - JSMin)/(JSMax-JSMin)
+#JS['JSNor']=JSN
+#JS.head()
 ```
-
-
-
-
-<div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Age</th>
-      <th>Gender</th>
-      <th>Item ID</th>
-      <th>Item Name</th>
-      <th>Price</th>
-      <th>SN</th>
-      <th>JSNor</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>38</td>
-      <td>Male</td>
-      <td>165</td>
-      <td>Bone Crushing Silver Skewer</td>
-      <td>3.37</td>
-      <td>Aelalis34</td>
-      <td>0.596939</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>21</td>
-      <td>Male</td>
-      <td>119</td>
-      <td>Stormbringer, Dark Blade of Ending Misery</td>
-      <td>2.32</td>
-      <td>Eolo46</td>
-      <td>0.329082</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>34</td>
-      <td>Male</td>
-      <td>174</td>
-      <td>Primitive Blade</td>
-      <td>2.46</td>
-      <td>Assastnya25</td>
-      <td>0.364796</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>21</td>
-      <td>Male</td>
-      <td>92</td>
-      <td>Final Critic</td>
-      <td>1.36</td>
-      <td>Pheusrical25</td>
-      <td>0.084184</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>23</td>
-      <td>Male</td>
-      <td>63</td>
-      <td>Stormfury Mace</td>
-      <td>1.27</td>
-      <td>Aela59</td>
-      <td>0.061224</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
 
 
 ```python
@@ -314,7 +228,8 @@ APbyG = round(JSGroup['Price'].mean(),2)
 #Total Purchase Value
 TPbyG = JSGroup['Price'].sum()
 #Normalized Totals
-TPbyGN = JSGroup['JSNor'].sum()
+# diff Method TPbyGN = JSGroup['JSNor'].sum()
+TPbyGN = round(TPbyG / PCbyG, 2)
           
 PAbyG = pd.DataFrame({"Purchase Count":PCbyG,"Average Purchase Price":APbyG,"Total Purchase Value":TPbyG,"Normalized Totals":TPbyGN})
 PAbyG = PAbyG[["Purchase Count","Average Purchase Price","Total Purchase Value","Normalized Totals"]]
@@ -361,21 +276,21 @@ PAbyG
       <td>136</td>
       <td>2.82</td>
       <td>382.91</td>
-      <td>61.946429</td>
+      <td>2.82</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>633</td>
       <td>2.95</td>
       <td>1867.68</td>
-      <td>310.125000</td>
+      <td>2.95</td>
     </tr>
     <tr>
       <th>Other / Non-Disclosed</th>
       <td>11</td>
       <td>3.25</td>
       <td>35.74</td>
-      <td>6.227041</td>
+      <td>3.25</td>
     </tr>
   </tbody>
 </table>
@@ -488,10 +403,10 @@ APbyA =round(JSgrAge['Price'].mean(),2)
 #Total Purchase Value
 TPbyA =JSgrAge['Price'].sum()
 #Normalized Totals
-#TPbyAN = JSgrAge['Price'].sum(normalize=True)
-MaxbyA = JSgrAge['Price'].max()
-MinbyA = JSgrAge['Price'].min()
-TPbyAN = round((TPbyA-APbyA) / (MaxbyA-MinbyA),2)
+#MaxbyA = JSgrAge['Price'].max() (diff way of Calc)
+#MinbyA = JSgrAge['Price'].min() (diff Way of Calc)
+#TPbyAN = round((TPbyA-APbyA) / (MaxbyA-MinbyA),2)
+TPbyAN = round(TPbyA / PCbyA, 2)
 
 ADbyG = pd.DataFrame({"Purchase Count":PCbyA,"Average Purchase Price":APbyA,"Total Purchase Value":TPbyA,"Normalized Totals":TPbyAN})
 ADbyG = ADbyG[["Purchase Count","Average Purchase Price","Total Purchase Value","Normalized Totals"]]
@@ -538,56 +453,56 @@ ADbyG
       <td>28</td>
       <td>2.98</td>
       <td>83.46</td>
-      <td>20.85</td>
+      <td>2.98</td>
     </tr>
     <tr>
       <th>10-14</th>
       <td>35</td>
       <td>2.77</td>
       <td>96.95</td>
-      <td>26.31</td>
+      <td>2.77</td>
     </tr>
     <tr>
       <th>15-19</th>
       <td>133</td>
       <td>2.91</td>
       <td>386.42</td>
-      <td>97.83</td>
+      <td>2.91</td>
     </tr>
     <tr>
       <th>20-24</th>
       <td>336</td>
       <td>2.91</td>
       <td>978.77</td>
-      <td>248.94</td>
+      <td>2.91</td>
     </tr>
     <tr>
       <th>25-29</th>
       <td>125</td>
       <td>2.96</td>
       <td>370.33</td>
-      <td>93.72</td>
+      <td>2.96</td>
     </tr>
     <tr>
       <th>30-34</th>
       <td>64</td>
       <td>3.08</td>
       <td>197.25</td>
-      <td>49.53</td>
+      <td>3.08</td>
     </tr>
     <tr>
       <th>35-39</th>
       <td>42</td>
       <td>2.84</td>
       <td>119.40</td>
-      <td>32.47</td>
+      <td>2.84</td>
     </tr>
     <tr>
       <th>40+</th>
       <td>14</td>
       <td>3.22</td>
       <td>45.11</td>
-      <td>14.85</td>
+      <td>3.22</td>
     </tr>
   </tbody>
 </table>
